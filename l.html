@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest</title>
+    <link rel="stylesheet" href="./styles/style.css"></link>
+</head>
+<body>
+    
+    <div id="may"></div>
+    <h1 style="text-align: center;">LATEST RECIPIES</h1>
+    <div id="show"></div>
+    
+</body>
+<script type="module">
+     let show=document.getElementById('show'); 
+
+    import navbar from "./components/navbar.js"
+    console.log(navbar);
+    document.getElementById('may').innerHTML=navbar();
+
+    
+    import {getData,append} from "./scripts/show.js";
+
+let response=(getData("https://themealdb.com/api/json/v1/1/filter.php?a=Indian",show));
+   
+
+     response
+     .then((res)=>{
+        aim(res);
+
+     })
+     .catch((err)=>{
+          console.log("err:",err);
+     });
+
+function aim(aim){
+    console.log(aim.meals[0].idMeal);
+    
+
+    for(var i=0;i<aim.meals.length;i++){
+    let response1=getData(`http://themealdb.com/api/json/v1/1/lookup.php?i=${aim.meals[i].idMeal}`,show);
+
+    
+    
+    response1 
+    .then((res1)=>{
+        
+        append(res1,show);
+    })
+    .catch((err)=>{
+         console.log("err:",err);
+    });
+}
+
+}
+     
+
+
+    
+</script>
+</html>

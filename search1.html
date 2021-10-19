@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    
+</head>
+<link rel="stylesheet" href="./styles/style.css"></link>
+<body>
+    <div id="may"></div>
+    <div id="input"><h2 style="font-family:cursive">Search for Recipies:</h2><input type="text" id="user"placeholder="search" ></input>
+    <button id="but">Search</button>
+    </div>
+
+
+    <div id="show"></div>
+    
+</body>
+<script type="module">
+     let show=document.getElementById('show'); 
+
+    import navbar from "./components/navbar.js"
+    import {getData,append} from "./scripts/show.js";
+    console.log(navbar);
+    document.getElementById('may').innerHTML=navbar();
+
+    var but=document.getElementById('but');
+    but.addEventListener('click',add);
+
+
+    function add(){
+        var show=document.getElementById('show');
+        var user=document.getElementById('user').value;
+        let response=(getData(`https://themealdb.com/api/json/v1/1/search.php?s=${user}`,show));
+         
+    
+        response
+    .then((res)=>{
+            
+        
+        append(res,show);
+    })
+    .catch((err)=>{
+         console.log("err:",err);
+    });
+    }
+</script>
+</html>
